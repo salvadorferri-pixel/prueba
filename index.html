@@ -19,17 +19,19 @@
     .heading{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:22px}.heading h2{margin:0 0 7px;font:400 clamp(30px,4vw,42px) var(--serif);letter-spacing:-.04em}.heading p{margin:0;color:var(--muted);font-size:13px}
     .controls{display:flex;gap:10px}.search,.sort{height:42px;padding:0 12px;border:1px solid var(--line);border-radius:2px;background:var(--white);font-size:12px}.search{width:205px}.sort{max-width:175px}
     .categories{display:flex;gap:9px;overflow:auto;padding:0 0 21px}.category{flex:none;padding:9px 16px;border:1px solid var(--line);border-radius:30px;background:transparent;color:var(--muted);cursor:pointer;font-size:12px}.category.active,.category:hover{background:var(--green);border-color:var(--green);color:white}
-    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:36px 20px}.card{min-width:0}.photo{position:relative;overflow:hidden;aspect-ratio:4/4.7;margin-bottom:14px;background:#e8e5dc}.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}.card:hover img{transform:scale(1.04)}
-    .tag{position:absolute;top:11px;left:11px;padding:7px 9px;background:var(--white);font-size:10px;text-transform:uppercase}.add{position:absolute;right:11px;bottom:11px;width:40px;height:40px;border:0;border-radius:50%;background:var(--white);cursor:pointer;font-size:21px}.add:hover{background:var(--green);color:white}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:36px 20px}.card{min-width:0}.photo{position:relative;overflow:hidden;aspect-ratio:4/4.7;margin-bottom:14px;background:#e8e5dc}.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}.card:hover img{transform:scale(1.04)}.photo-link{display:block;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:pointer}.photo-link:focus-visible{outline:3px solid var(--green);outline-offset:-3px}
+    .tag{position:absolute;top:11px;left:11px;padding:7px 9px;background:var(--white);font-size:10px;text-transform:uppercase;pointer-events:none}.add{position:absolute;right:11px;bottom:11px;width:40px;height:40px;border:0;border-radius:50%;background:var(--white);cursor:pointer;font-size:21px}.add:hover{background:var(--green);color:white}
     .product-info{display:flex;justify-content:space-between;gap:8px}.product-info h3{margin:0 0 6px;font-size:14px;font-weight:500}.product-info p{margin:0;color:var(--muted);font-size:12px}.price{white-space:nowrap;font-size:13px}.empty{grid-column:1/-1;padding:55px;text-align:center;color:var(--muted)}
     .story{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;margin-top:95px;padding-top:42px;border-top:1px solid var(--line)}.story img{width:100%;max-height:380px;object-fit:cover}.story h2{font:400 38px/1.1 var(--serif)}.story p:not(.eyebrow){max-width:430px;color:var(--muted);font-size:14px;line-height:1.8}.story .eyebrow{color:var(--green)}
     footer{display:flex;justify-content:space-between;gap:20px;padding:27px 6%;background:#eeece5;color:var(--muted);font-size:12px}footer p{margin:0}
     .overlay{position:fixed;z-index:5;inset:0;background:#191d1866;opacity:0;visibility:hidden;transition:.25s}.overlay.open{opacity:1;visibility:visible}
     .drawer{position:fixed;z-index:6;inset:0 0 0 auto;width:min(430px,100%);display:flex;flex-direction:column;padding:25px;background:var(--white);transform:translateX(100%);transition:transform .25s}.drawer.open{transform:none}
     .drawer-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line)}.drawer-head h2{margin:0;font:28px var(--serif)}.close{border:0;background:none;cursor:pointer;font-size:25px}.items{flex:1;overflow:auto}.empty-cart{padding:25px 0;color:var(--muted);font-size:14px}.item{display:grid;grid-template-columns:70px 1fr auto;gap:13px;padding:17px 0;border-bottom:1px solid var(--line)}.item img{width:70px;height:82px;object-fit:cover}.item h3{margin:3px 0 6px;font-size:13px;font-weight:500}.item p{margin:0;color:var(--muted);font-size:12px}.qty{display:flex;align-items:center;gap:10px;margin-top:10px}.qty button{width:25px;height:25px;border:1px solid var(--line);background:transparent;cursor:pointer}.subtotal{display:flex;justify-content:space-between;padding:18px 0 8px;border-top:1px solid var(--line);font-size:14px}.note{color:var(--muted);font-size:11px}.checkout{width:100%;margin:12px 0}
+    .detail{width:min(850px,calc(100% - 32px));max-height:calc(100% - 32px);padding:0;border:0;background:var(--white);color:var(--ink)}.detail::backdrop{background:#191d18a8}.detail-content{display:grid;grid-template-columns:1fr 1fr}.detail-image{width:100%;height:100%;min-height:360px;object-fit:cover;background:#e8e5dc}.detail-copy{position:relative;padding:50px 38px 38px}.detail-close{position:absolute;top:12px;right:18px}.detail-category{color:var(--green)}.detail h2{margin:15px 0;font:400 36px/1.1 var(--serif)}.detail-price{font-size:18px}.detail-description{margin:25px 0;color:var(--muted);font-size:14px;line-height:1.8}
     .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
     @media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
     @media(max-width:650px){header{height:64px;padding:0 20px}nav{display:none}main{padding:0 20px 55px}.hero{min-height:390px;margin:18px 0 45px;padding:27px;background-position:60% center}.heading{align-items:flex-start;flex-direction:column}.controls{width:100%}.search{flex:1;min-width:0}.sort{max-width:155px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:27px 12px}.photo{margin-bottom:10px}.tag{top:8px;left:8px;padding:6px;font-size:9px}.add{right:8px;bottom:8px;width:36px;height:36px}.product-info{display:block}.product-info h3{font-size:13px}.price{display:block;margin-top:8px}.story{grid-template-columns:1fr;margin-top:62px;padding-top:30px;gap:27px}.story h2{font-size:32px}footer{flex-direction:column;padding:23px 20px}}
+    @media(max-width:650px){.detail-content{grid-template-columns:1fr}.detail-image{height:240px;min-height:0}.detail-copy{padding:28px}.detail h2{font-size:30px}.detail-description{margin:18px 0}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
   </style>
 </head>
@@ -50,18 +52,31 @@
     <section class="story" id="historia"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85" alt="Salón luminoso con muebles y materiales naturales" loading="lazy"><div><p class="eyebrow">Menos, pero mejor</p><h2>Una casa que se siente como tú.</h2><p>Creemos que los objetos que nos rodean pueden hacer la vida un poco más bonita. Elegimos piezas funcionales, hechas con cuidado y con materiales que envejecen bien.</p><a class="cta" href="#catalogo">Explorar productos</a></div></section>
   </main>
   <footer id="contacto"><p>© 2025 Casa Noma. Hecho para vivir mejor.</p><p>Diseño consciente · Materiales naturales · Envíos con cariño</p></footer>
+  <dialog class="detail" id="detail" aria-labelledby="detail-title" aria-describedby="detail-description">
+    <div class="detail-content">
+      <img class="detail-image" id="detail-image" alt="">
+      <div class="detail-copy">
+        <button class="close detail-close" id="detail-close" type="button" aria-label="Cerrar ficha">×</button>
+        <p class="eyebrow detail-category" id="detail-category"></p>
+        <h2 id="detail-title"></h2>
+        <div class="detail-price" id="detail-price"></div>
+        <p class="detail-description" id="detail-description"></p>
+        <button class="cta" id="detail-add" type="button">Añadir al carrito</button>
+      </div>
+    </div>
+  </dialog>
   <div class="overlay" id="overlay"></div>
   <aside class="drawer" id="drawer" aria-label="Tu carrito" aria-hidden="true"><div class="drawer-head"><h2>Tu carrito</h2><button class="close" id="close" aria-label="Cerrar carrito">×</button></div><div class="items" id="items"></div><div><div class="subtotal"><span>Subtotal</span><strong id="subtotal">0,00 €</strong></div><p class="note">Los gastos de envío se calculan al finalizar la compra.</p><button class="cta checkout" id="checkout">Continuar con la compra</button></div></aside>
   <script>
     const products=[
-      {id:1,name:"Jarrón Alba",category:"Decoración",price:34,tag:"Más vendido",image:"photo-1578500494198-246f612d3b3d"},
-      {id:2,name:"Lámpara Nido",category:"Iluminación",price:89,tag:"Nuevo",image:"photo-1507473885765-e6ed057f782c"},
-      {id:3,name:"Silla Olmo",category:"Mobiliario",price:219,tag:"",image:"photo-1503602642458-232111445657"},
-      {id:4,name:"Cuenco Tierra",category:"Menaje",price:28,tag:"",image:"photo-1493106641515-6b5631de4bb9"},
-      {id:5,name:"Manta Bruma",category:"Textil",price:65,tag:"Hecho a mano",image:"photo-1600210492486-724fe5c67fb0"},
-      {id:6,name:"Mesa Lino",category:"Mobiliario",price:189,tag:"",image:"photo-1499933374294-4584851497cc"},
-      {id:7,name:"Luz Serena",category:"Iluminación",price:72,tag:"",image:"photo-1543198126-a8ad8e47fb22"},
-      {id:8,name:"Jarra Calma",category:"Menaje",price:42,tag:"Nuevo",image:"photo-1578749556568-bc2c40e68b61"}
+      {id:1,name:"Jarrón Alba",category:"Decoración",price:34,tag:"Más vendido",image:"photo-1578500494198-246f612d3b3d",description:"Un jarrón de líneas suaves que aporta calma a cualquier rincón. Ideal para lucir flores frescas o ramas secas, o como pieza decorativa por sí solo."},
+      {id:2,name:"Lámpara Nido",category:"Iluminación",price:89,tag:"Nuevo",image:"photo-1507473885765-e6ed057f782c",description:"Una lámpara de diseño sereno para crear un ambiente acogedor. Perfecta junto al sofá o sobre una mesa auxiliar para acompañar tus momentos de lectura."},
+      {id:3,name:"Silla Olmo",category:"Mobiliario",price:219,tag:"",image:"photo-1503602642458-232111445657",description:"Una silla de silueta sencilla y atemporal que se integra fácilmente en el comedor o en un rincón de trabajo. Una pieza pensada para el día a día."},
+      {id:4,name:"Cuenco Tierra",category:"Menaje",price:28,tag:"",image:"photo-1493106641515-6b5631de4bb9",description:"Un cuenco versátil de inspiración natural para servir tus platos favoritos. Su estética sencilla hace especial cualquier comida, desde el desayuno hasta la cena."},
+      {id:5,name:"Manta Bruma",category:"Textil",price:65,tag:"Hecho a mano",image:"photo-1600210492486-724fe5c67fb0",description:"Una manta acogedora para añadir una capa de confort al sofá o a los pies de la cama. Su estilo discreto invita a disfrutar de los momentos de pausa."},
+      {id:6,name:"Mesa Lino",category:"Mobiliario",price:189,tag:"",image:"photo-1499933374294-4584851497cc",description:"Una mesa de diseño limpio y funcional que ofrece espacio para trabajar, crear o compartir. Sus líneas sencillas combinan con ambientes de estilos diversos."},
+      {id:7,name:"Luz Serena",category:"Iluminación",price:72,tag:"",image:"photo-1543198126-a8ad8e47fb22",description:"Una luz de acento para dar calidez a tus espacios. Su diseño discreto resulta fácil de incorporar al dormitorio, el salón o la zona de lectura."},
+      {id:8,name:"Jarra Calma",category:"Menaje",price:42,tag:"Nuevo",image:"photo-1578749556568-bc2c40e68b61",description:"Una jarra de formas orgánicas que viste la mesa con naturalidad. Úsala para servir bebidas o como elemento decorativo en la cocina."}
     ];
     const money=new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR"});
     const cats=["Todo",...new Set(products.map(p=>p.category))],cart=new Map();
@@ -73,7 +88,7 @@
       let list=products.filter(p=>(active==="Todo"||p.category===active)&&`${p.name} ${p.category}`.toLocaleLowerCase("es").includes(query));
       if(order==="asc")list.sort((a,b)=>a.price-b.price);if(order==="desc")list.sort((a,b)=>b.price-a.price);if(order==="name")list.sort((a,b)=>a.name.localeCompare(b.name,"es"));
       document.getElementById("result").textContent=`${list.length} ${list.length===1?"producto":"productos"} seleccionados`;
-      grid.innerHTML=list.length?list.map(p=>`<article class="card"><div class="photo"><img src="${photo(p.image)}" alt="${p.name}" loading="lazy">${p.tag?`<span class="tag">${p.tag}</span>`:""}<button class="add" data-add="${p.id}" aria-label="Añadir ${p.name} al carrito">+</button></div><div class="product-info"><div><h3>${p.name}</h3><p>${p.category}</p></div><span class="price">${money.format(p.price)}</span></div></article>`).join(""):`<div class="empty">No encontramos productos. Prueba otra búsqueda o categoría.</div>`;
+      grid.innerHTML=list.length?list.map(p=>`<article class="card"><div class="photo"><button class="photo-link" type="button" data-detail="${p.id}" aria-label="Ver ficha de ${p.name}"><img src="${photo(p.image)}" alt="" loading="lazy"></button>${p.tag?`<span class="tag">${p.tag}</span>`:""}<button class="add" data-add="${p.id}" aria-label="Añadir ${p.name} al carrito">+</button></div><div class="product-info"><div><h3>${p.name}</h3><p>${p.category}</p></div><span class="price">${money.format(p.price)}</span></div></article>`).join(""):`<div class="empty">No encontramos productos. Prueba otra búsqueda o categoría.</div>`;
     }
     function renderCart(){
       const entries=[...cart.entries()],count=entries.reduce((s,[,q])=>s+q,0),total=entries.reduce((s,[id,q])=>s+products.find(p=>p.id===id).price*q,0);
@@ -82,12 +97,30 @@
     }
     function setCart(open){document.getElementById("drawer").classList.toggle("open",open);document.getElementById("overlay").classList.toggle("open",open);document.getElementById("drawer").setAttribute("aria-hidden",String(!open));document.body.style.overflow=open?"hidden":"";if(open)document.getElementById("close").focus()}
     catBox.addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;active=b.dataset.cat;renderCats();renderProducts()});
-    grid.addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(!b)return;const id=Number(b.dataset.add);cart.set(id,(cart.get(id)||0)+1);renderCart()});
+    function addToCart(id){cart.set(id,(cart.get(id)||0)+1);renderCart()}
+    const detail=document.getElementById("detail");
+    let detailId=null;
+    function showDetail(id){
+      const p=products.find(product=>product.id===id);
+      if(!p)return;
+      detailId=id;
+      document.getElementById("detail-image").src=photo(p.image);
+      document.getElementById("detail-image").alt=p.name;
+      document.getElementById("detail-category").textContent=p.category;
+      document.getElementById("detail-title").textContent=p.name;
+      document.getElementById("detail-price").textContent=money.format(p.price);
+      document.getElementById("detail-description").textContent=p.description;
+      detail.showModal();
+    }
+    grid.addEventListener("click",e=>{const detailButton=e.target.closest("[data-detail]");if(detailButton){showDetail(Number(detailButton.dataset.detail));return}const addButton=e.target.closest("[data-add]");if(addButton)addToCart(Number(addButton.dataset.add))});
+    document.getElementById("detail-close").addEventListener("click",()=>detail.close());
+    document.getElementById("detail-add").addEventListener("click",()=>{if(detailId!==null){addToCart(detailId);detail.close();setCart(true)}});
+    detail.addEventListener("click",e=>{if(e.target===detail)detail.close()});
     document.getElementById("items").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(!b)return;const id=Number(b.dataset.id),q=(cart.get(id)||0)+Number(b.dataset.delta);if(q<=0)cart.delete(id);else cart.set(id,q);renderCart()});
     document.getElementById("search").addEventListener("input",e=>{query=e.target.value.trim().toLocaleLowerCase("es");renderProducts()});
     document.getElementById("sort").addEventListener("change",e=>{order=e.target.value;renderProducts()});
     document.getElementById("openCart").addEventListener("click",()=>setCart(true));document.getElementById("close").addEventListener("click",()=>setCart(false));document.getElementById("overlay").addEventListener("click",()=>setCart(false));
-    document.addEventListener("keydown",e=>{if(e.key==="Escape")setCart(false)});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"){if(detail.open){e.preventDefault();detail.close()}else if(document.getElementById("drawer").classList.contains("open"))setCart(false)}});
     document.getElementById("checkout").addEventListener("click",()=>{if(cart.size===0){document.getElementById("items").innerHTML='<p class="empty-cart">Añade algún producto antes de continuar con la compra.</p>';return}window.alert("¡Gracias por tu interés! La compra estará disponible próximamente.")});
     renderCats();renderProducts();renderCart();
   </script>
