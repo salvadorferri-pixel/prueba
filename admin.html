@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administrar catálogo — Equina</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f5f3ed;color:#252923;font:15px/1.6 "Segoe UI",sans-serif}main{max-width:680px;margin:40px auto;padding:0 20px 50px}h1{font:36px Georgia,serif}a{color:#435b42}form{background:#fffefa;padding:25px}label{display:block;margin:16px 0 5px}input,textarea{width:100%;padding:11px;border:1px solid #ccc;font:inherit}textarea{min-height:110px;resize:vertical}button{margin-top:22px;padding:13px 20px;border:0;background:#435b42;color:white;cursor:pointer}button:disabled{opacity:.6}small{display:block;color:#62665f}.notice{padding:14px;background:#edf2eb}.status{white-space:pre-wrap} 
+  </style>
+</head>
+<body>
+<main>
+  <a href="index.html">← Volver a la tienda</a>
+  <h1>Administrar catálogo</h1>
+  <p>Publica un producto nuevo en el catálogo compartido. El acceso se verifica directamente con GitHub.</p>
+  <p class="notice">Necesitas un <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">token de acceso fino de GitHub</a> con permiso <strong>Contents: Read and write</strong> únicamente para el repositorio <strong>salvadorferri-pixel/prueba</strong>. El token se envía solo a la API de GitHub y no se guarda en el navegador. No lo compartas por chat. Usa únicamente fotografías que tengas derecho a publicar.</p>
+  <form id="form">
+    <label for="token">Token de GitHub</label><input id="token" type="password" autocomplete="off" required>
+    <label for="name">Nombre del producto</label><input id="name" maxlength="100" required>
+    <label for="category">Categoría</label><input id="category" maxlength="60" required>
+    <label for="price">Precio en euros</label><input id="price" type="number" min="0" max="1000000" step="0.01" required>
+    <label for="image">URL HTTPS de la imagen</label><input id="image" type="url" required><small>La imagen debe ser accesible públicamente.</small>
+    <label for="description">Descripción</label><textarea id="description" maxlength="1500" required></textarea>
+    <label for="credit">Autor y licencia de la fotografía</label><input id="credit" maxlength="200" required>
+    <label for="source">URL HTTPS de la fuente de la fotografía</label><input id="source" type="url" required>
+    <label for="license">URL HTTPS de la licencia (opcional)</label><input id="license" type="url">
+    <button id="submit" type="submit">Publicar producto</button>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </form>
+</main>
+<script>
+  const form=document.getElementById("form"),status=document.getElementById("status"),submit=document.getElementById("submit");
+  const endpoint="https://api.github.com/repos/salvadorferri-pixel/prueba/contents/catalog.json";
+  function httpsUrl(value){const url=new URL(value);if(url.protocol!=="https:")throw new Error("Las direcciones deben empezar por https://");return url.href}
+  form.addEventListener("submit",async event=>{
+    event.preventDefault();
+    status.textContent="";
+    try{
+      const token=document.getElementById("token").value.trim();
+      const name=document.getElementById("name").value.trim(),category=document.getElementById("category").value.trim(),description=document.getElementById("description").value.trim(),credit=document.getElementById("credit").value.trim();
+      if(!token||!name||!category||!description||!credit)throw new Error("Completa todos los campos obligatorios.");
+      const price=Number(document.getElementById("price").value);
+      if(!Number.isFinite(price)||price<0||price>1000000)throw new Error("Introduce un precio válido.");
+      const image=httpsUrl(document.getElementById("image").value),source=httpsUrl(document.getElementById("source").value);
+      const licenseValue=document.getElementById("license").value.trim(),license=licenseValue?httpsUrl(licenseValue):"";
+      submit.disabled=true;status.textContent="Publicando en GitHub…";
+      const headers={Accept:"application/vnd.github+json",Authorization:`Bearer ${token}`,"X-GitHub-Api-Version":"2022-11-28"};
+      const response=await fetch(endpoint,{headers});
+      if(!response.ok)throw new Error(`No se pudo leer el catálogo (GitHub ${response.status}). Comprueba el token y sus permisos.`);
+      const file=await response.json();
+      const bytes=Uint8Array.from(atob(file.content.replace(/\s/g,"")),c=>c.charCodeAt(0));
+      const products=JSON.parse(new TextDecoder().decode(bytes));
+      if(!Array.isArray(products)||products.some(p=>!Number.isSafeInteger(p.id)||p.id<1))throw new Error("El catálogo existente no tiene un formato válido.");
+      const id=Math.max(0,...products.map(p=>p.id))+1;
+      products.push({id,name,category,price,image,description,credit,source,...(license?{license}:{})});
+      const data=new TextEncoder().encode(JSON.stringify(products,null,2)+"\n");
+      let binary="";for(const byte of data)binary+=String.fromCharCode(byte);
+      const saved=await fetch(endpoint,{method:"PUT",headers:{...headers,"Content-Type":"application/json"},body:JSON.stringify({message:"Añadir producto al catálogo\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>",content:btoa(binary),sha:file.sha,branch:"main"})});
+      if(!saved.ok){if(saved.status===409)throw new Error("El catálogo ha cambiado. Vuelve a intentarlo para evitar sobrescribir otros cambios.");throw new Error(`No se pudo publicar el producto (GitHub ${saved.status}). Comprueba permisos y protección de la rama.`)}
+      form.reset();status.textContent="Producto guardado en GitHub. La publicación puede tardar unos minutos; actualiza la tienda cuando termine.";
+    }catch(error){status.textContent=`Error: ${error.message}`;}
+    finally{submit.disabled=false;document.getElementById("token").value=""}
+  });
+</script>
+</body>
+</html>
