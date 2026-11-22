@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <title>Casa Noma — Objetos para vivir mejor</title>
+  <style>
+    :root{--ink:#252923;--muted:#777b70;--paper:#f5f3ed;--white:#fffefa;--line:#e6e3da;--green:#435b42;--serif:Georgia,"Times New Roman",serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+    button,input,select{font:inherit}.announcement{padding:10px;text-align:center;background:var(--green);color:white;font-size:11px;letter-spacing:.13em}
+    header{height:74px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .logo{color:var(--ink);text-decoration:none;font:28px var(--serif);letter-spacing:-.06em}.logo b{color:var(--green);font-weight:400}
+    nav{display:flex;gap:30px}nav a{color:var(--muted);font-size:13px;text-decoration:none}nav a:hover{color:var(--green)}
+    .cart-open{border:0;background:none;cursor:pointer;font-size:13px}.count{display:inline-grid;place-items:center;margin-left:7px;width:24px;height:24px;border-radius:50%;background:var(--green);color:white}
+    main{max-width:1400px;margin:auto;padding:0 6% 75px}.hero{min-height:390px;margin:28px 0 62px;padding:clamp(30px,7vw,85px);display:flex;align-items:center;color:#fff;border-radius:3px;background:linear-gradient(90deg,rgba(26,35,27,.73),rgba(26,35,27,.08)),url("https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1800&q=85") center 55%/cover}
+    .hero-copy{max-width:510px}.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase}.hero h1{margin:14px 0 18px;font:400 clamp(44px,6.5vw,72px)/.98 var(--serif);letter-spacing:-.045em}.hero p:not(.eyebrow){max-width:370px;color:#eeeee9;font-size:15px;line-height:1.7}
+    .cta{display:inline-block;margin-top:8px;padding:14px 21px;border:0;border-radius:2px;background:var(--green);color:white;text-decoration:none;font-size:13px;cursor:pointer}.hero .cta{background:white;color:var(--ink)}
+    .heading{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:22px}.heading h2{margin:0 0 7px;font:400 clamp(30px,4vw,42px) var(--serif);letter-spacing:-.04em}.heading p{margin:0;color:var(--muted);font-size:13px}
+    .controls{display:flex;gap:10px}.search,.sort{height:42px;padding:0 12px;border:1px solid var(--line);border-radius:2px;background:var(--white);font-size:12px}.search{width:205px}.sort{max-width:175px}
+    .categories{display:flex;gap:9px;overflow:auto;padding:0 0 21px}.category{flex:none;padding:9px 16px;border:1px solid var(--line);border-radius:30px;background:transparent;color:var(--muted);cursor:pointer;font-size:12px}.category.active,.category:hover{background:var(--green);border-color:var(--green);color:white}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:36px 20px}.card{min-width:0}.photo{position:relative;overflow:hidden;aspect-ratio:4/4.7;margin-bottom:14px;background:#e8e5dc}.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}.card:hover img{transform:scale(1.04)}
+    .tag{position:absolute;top:11px;left:11px;padding:7px 9px;background:var(--white);font-size:10px;text-transform:uppercase}.add{position:absolute;right:11px;bottom:11px;width:40px;height:40px;border:0;border-radius:50%;background:var(--white);cursor:pointer;font-size:21px}.add:hover{background:var(--green);color:white}
+    .product-info{display:flex;justify-content:space-between;gap:8px}.product-info h3{margin:0 0 6px;font-size:14px;font-weight:500}.product-info p{margin:0;color:var(--muted);font-size:12px}.price{white-space:nowrap;font-size:13px}.empty{grid-column:1/-1;padding:55px;text-align:center;color:var(--muted)}
+    .story{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7vw;margin-top:95px;padding-top:42px;border-top:1px solid var(--line)}.story img{width:100%;max-height:380px;object-fit:cover}.story h2{font:400 38px/1.1 var(--serif)}.story p:not(.eyebrow){max-width:430px;color:var(--muted);font-size:14px;line-height:1.8}.story .eyebrow{color:var(--green)}
+    footer{display:flex;justify-content:space-between;gap:20px;padding:27px 6%;background:#eeece5;color:var(--muted);font-size:12px}footer p{margin:0}
+    .overlay{position:fixed;z-index:5;inset:0;background:#191d1866;opacity:0;visibility:hidden;transition:.25s}.overlay.open{opacity:1;visibility:visible}
+    .drawer{position:fixed;z-index:6;inset:0 0 0 auto;width:min(430px,100%);display:flex;flex-direction:column;padding:25px;background:var(--white);transform:translateX(100%);transition:transform .25s}.drawer.open{transform:none}
+    .drawer-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line)}.drawer-head h2{margin:0;font:28px var(--serif)}.close{border:0;background:none;cursor:pointer;font-size:25px}.items{flex:1;overflow:auto}.empty-cart{padding:25px 0;color:var(--muted);font-size:14px}.item{display:grid;grid-template-columns:70px 1fr auto;gap:13px;padding:17px 0;border-bottom:1px solid var(--line)}.item img{width:70px;height:82px;object-fit:cover}.item h3{margin:3px 0 6px;font-size:13px;font-weight:500}.item p{margin:0;color:var(--muted);font-size:12px}.qty{display:flex;align-items:center;gap:10px;margin-top:10px}.qty button{width:25px;height:25px;border:1px solid var(--line);background:transparent;cursor:pointer}.subtotal{display:flex;justify-content:space-between;padding:18px 0 8px;border-top:1px solid var(--line);font-size:14px}.note{color:var(--muted);font-size:11px}.checkout{width:100%;margin:12px 0}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:650px){header{height:64px;padding:0 20px}nav{display:none}main{padding:0 20px 55px}.hero{min-height:390px;margin:18px 0 45px;padding:27px;background-position:60% center}.heading{align-items:flex-start;flex-direction:column}.controls{width:100%}.search{flex:1;min-width:0}.sort{max-width:155px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:27px 12px}.photo{margin-bottom:10px}.tag{top:8px;left:8px;padding:6px;font-size:9px}.add{right:8px;bottom:8px;width:36px;height:36px}.product-info{display:block}.product-info h3{font-size:13px}.price{display:block;margin-top:8px}.story{grid-template-columns:1fr;margin-top:62px;padding-top:30px;gap:27px}.story h2{font-size:32px}footer{flex-direction:column;padding:23px 20px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="announcement">ENVÍO GRATIS EN PEDIDOS SUPERIORES A 75 €</div>
+  <header>
+    <a class="logo" href="#" aria-label="Casa Noma, inicio">casa<b>noma.</b></a>
+    <nav aria-label="Navegación principal"><a href="#catalogo">Tienda</a><a href="#historia">Nuestra filosofía</a><a href="#contacto">Contacto</a></nav>
+    <button class="cart-open" id="openCart" aria-label="Abrir carrito">Carrito <span class="count" id="count">0</span></button>
+  </header>
+  <main>
+    <section class="hero"><div class="hero-copy"><p class="eyebrow">Pequeños detalles, grandes momentos</p><h1>Haz espacio<br>para lo esencial.</h1><p>Objetos cotidianos, materiales honestos y diseño pensado para acompañarte durante mucho tiempo.</p><a class="cta" href="#catalogo">Descubrir la colección</a></div></section>
+    <section id="catalogo">
+      <div class="heading"><div><h2>Piezas para tu hogar</h2><p id="result">Una selección de objetos hecha para durar.</p></div><div class="controls"><label><span class="sr">Buscar productos</span><input class="search" id="search" type="search" placeholder="Buscar productos..."></label><label><span class="sr">Ordenar productos</span><select class="sort" id="sort"><option value="featured">Destacados</option><option value="asc">Precio: menor a mayor</option><option value="desc">Precio: mayor a menor</option><option value="name">Nombre: A-Z</option></select></label></div></div>
+      <div class="categories" id="categories" aria-label="Filtrar por categoría"></div>
+      <div class="grid" id="grid" aria-live="polite"></div>
+    </section>
+    <section class="story" id="historia"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85" alt="Salón luminoso con muebles y materiales naturales" loading="lazy"><div><p class="eyebrow">Menos, pero mejor</p><h2>Una casa que se siente como tú.</h2><p>Creemos que los objetos que nos rodean pueden hacer la vida un poco más bonita. Elegimos piezas funcionales, hechas con cuidado y con materiales que envejecen bien.</p><a class="cta" href="#catalogo">Explorar productos</a></div></section>
+  </main>
+  <footer id="contacto"><p>© 2025 Casa Noma. Hecho para vivir mejor.</p><p>Diseño consciente · Materiales naturales · Envíos con cariño</p></footer>
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-label="Tu carrito" aria-hidden="true"><div class="drawer-head"><h2>Tu carrito</h2><button class="close" id="close" aria-label="Cerrar carrito">×</button></div><div class="items" id="items"></div><div><div class="subtotal"><span>Subtotal</span><strong id="subtotal">0,00 €</strong></div><p class="note">Los gastos de envío se calculan al finalizar la compra.</p><button class="cta checkout" id="checkout">Continuar con la compra</button></div></aside>
+  <script>
+    const products=[
+      {id:1,name:"Jarrón Alba",category:"Decoración",price:34,tag:"Más vendido",image:"photo-1578500494198-246f612d3b3d"},
+      {id:2,name:"Lámpara Nido",category:"Iluminación",price:89,tag:"Nuevo",image:"photo-1507473885765-e6ed057f782c"},
+      {id:3,name:"Silla Olmo",category:"Mobiliario",price:219,tag:"",image:"photo-1503602642458-232111445657"},
+      {id:4,name:"Cuenco Tierra",category:"Menaje",price:28,tag:"",image:"photo-1493106641515-6b5631de4bb9"},
+      {id:5,name:"Manta Bruma",category:"Textil",price:65,tag:"Hecho a mano",image:"photo-1600210492486-724fe5c67fb0"},
+      {id:6,name:"Mesa Lino",category:"Mobiliario",price:189,tag:"",image:"photo-1499933374294-4584851497cc"},
+      {id:7,name:"Luz Serena",category:"Iluminación",price:72,tag:"",image:"photo-1543198126-a8ad8e47fb22"},
+      {id:8,name:"Jarra Calma",category:"Menaje",price:42,tag:"Nuevo",image:"photo-1578749556568-bc2c40e68b61"}
+    ];
+    const money=new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR"});
+    const cats=["Todo",...new Set(products.map(p=>p.category))],cart=new Map();
+    let active="Todo",query="",order="featured";
+    const grid=document.getElementById("grid"),catBox=document.getElementById("categories");
+    const photo=(id,w=700)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+    function renderCats(){catBox.innerHTML=cats.map(c=>`<button class="category ${c===active?"active":""}" data-cat="${c}" aria-pressed="${c===active}">${c}</button>`).join("")}
+    function renderProducts(){
+      let list=products.filter(p=>(active==="Todo"||p.category===active)&&`${p.name} ${p.category}`.toLocaleLowerCase("es").includes(query));
+      if(order==="asc")list.sort((a,b)=>a.price-b.price);if(order==="desc")list.sort((a,b)=>b.price-a.price);if(order==="name")list.sort((a,b)=>a.name.localeCompare(b.name,"es"));
+      document.getElementById("result").textContent=`${list.length} ${list.length===1?"producto":"productos"} seleccionados`;
+      grid.innerHTML=list.length?list.map(p=>`<article class="card"><div class="photo"><img src="${photo(p.image)}" alt="${p.name}" loading="lazy">${p.tag?`<span class="tag">${p.tag}</span>`:""}<button class="add" data-add="${p.id}" aria-label="Añadir ${p.name} al carrito">+</button></div><div class="product-info"><div><h3>${p.name}</h3><p>${p.category}</p></div><span class="price">${money.format(p.price)}</span></div></article>`).join(""):`<div class="empty">No encontramos productos. Prueba otra búsqueda o categoría.</div>`;
+    }
+    function renderCart(){
+      const entries=[...cart.entries()],count=entries.reduce((s,[,q])=>s+q,0),total=entries.reduce((s,[id,q])=>s+products.find(p=>p.id===id).price*q,0);
+      document.getElementById("count").textContent=count;document.getElementById("subtotal").textContent=money.format(total);
+      document.getElementById("items").innerHTML=entries.length?entries.map(([id,q])=>{const p=products.find(x=>x.id===id);return `<article class="item"><img src="${photo(p.image,180)}" alt=""><div><h3>${p.name}</h3><p>${money.format(p.price)}</p><div class="qty"><button data-id="${id}" data-delta="-1" aria-label="Quitar una unidad">−</button><span>${q}</span><button data-id="${id}" data-delta="1" aria-label="Añadir una unidad">+</button></div></div><span>${money.format(p.price*q)}</span></article>`}).join(""):`<p class="empty-cart">Tu carrito está vacío. Encuentra algo especial para tu hogar.</p>`;
+    }
+    function setCart(open){document.getElementById("drawer").classList.toggle("open",open);document.getElementById("overlay").classList.toggle("open",open);document.getElementById("drawer").setAttribute("aria-hidden",String(!open));document.body.style.overflow=open?"hidden":"";if(open)document.getElementById("close").focus()}
+    catBox.addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;active=b.dataset.cat;renderCats();renderProducts()});
+    grid.addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(!b)return;const id=Number(b.dataset.add);cart.set(id,(cart.get(id)||0)+1);renderCart()});
+    document.getElementById("items").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(!b)return;const id=Number(b.dataset.id),q=(cart.get(id)||0)+Number(b.dataset.delta);if(q<=0)cart.delete(id);else cart.set(id,q);renderCart()});
+    document.getElementById("search").addEventListener("input",e=>{query=e.target.value.trim().toLocaleLowerCase("es");renderProducts()});
+    document.getElementById("sort").addEventListener("change",e=>{order=e.target.value;renderProducts()});
+    document.getElementById("openCart").addEventListener("click",()=>setCart(true));document.getElementById("close").addEventListener("click",()=>setCart(false));document.getElementById("overlay").addEventListener("click",()=>setCart(false));
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")setCart(false)});
+    document.getElementById("checkout").addEventListener("click",()=>{if(cart.size===0){document.getElementById("items").innerHTML='<p class="empty-cart">Añade algún producto antes de continuar con la compra.</p>';return}window.alert("¡Gracias por tu interés! La compra estará disponible próximamente.")});
+    renderCats();renderProducts();renderCart();
+  </script>
+</body>
+</html>
